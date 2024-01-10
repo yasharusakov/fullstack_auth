@@ -6,23 +6,23 @@ import ApiError from '../exceptions/apiError.js'
 
 class UserService {
     async registration(username, password) {
-        const candidate = await UserModel.findOne({ username })
+        const candidate = await UserModel.findOne({username})
         if (candidate) {
             throw ApiError.BadRequest(`Пользователь с почтовым адресом ${username} уже существует`)
         }
-        
+
         const hashPassword = await bcrypt.hash(password, 3)
-        const user = await UserModel.create({ username, password: hashPassword})
+        const user = await UserModel.create({username, password: hashPassword})
 
         const userDto = new UserDto(user)
-        const tokens = tokenService.generateTokens({ ...userDto })
+        const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
-        return { ...tokens, user: userDto }
+        return {...tokens, user: userDto}
     }
 
     async login(username, password) {
-        const user = await UserModel.findOne({ username })
+        const user = await UserModel.findOne({username})
         if (!user) {
             throw ApiError.BadRequest('Пользователь с таким email не найден')
         }
@@ -31,10 +31,10 @@ class UserService {
             throw ApiError.BadRequest('Неверный пароль')
         }
         const userDto = new UserDto(user)
-        const tokens = tokenService.generateTokens({ ...userDto })
+        const tokens = tokenService.generateTokens({...userDto})
 
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-        return { ...tokens, user: userDto }
+        return {...tokens, user: userDto}
     }
 
     async logout(refreshToken) {
@@ -53,10 +53,10 @@ class UserService {
         }
         const user = await UserModel.findById(userData.id)
         const userDto = new UserDto(user)
-        const tokens = tokenService.generateTokens({ ...userDto })
+        const tokens = tokenService.generateTokens({...userDto})
 
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-        return { ...tokens, user: userDto }
+        return {...tokens, user: userDto}
     }
 
     async getAllUsers() {

@@ -10,6 +10,7 @@ dotenv.config()
 const PORT = process.env.PORT || 5000
 
 const app = express()
+
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
@@ -24,7 +25,7 @@ const main = async () => {
         await mongoose.connect(process.env.DATABASE_URL)
     } catch (err) {
         console.error(err)
-    } finally {}
+    } finally { }
 }
 
 main()

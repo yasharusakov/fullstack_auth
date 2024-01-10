@@ -1,10 +1,10 @@
-import { createSlice, Draft, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit"
+import {createSlice, Draft, PayloadAction, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from 'axios'
 
-import { IUser } from '../../types/IUser'
+import {IUser} from '../../types/IUser'
 import AuthService from "../../services/AuthService"
-import { AuthResponse } from "../../types/responses/AuthResponse"
-import { API_URL } from "../../http"
+import {AuthResponse} from "../../types/responses/AuthResponse"
+import {API_URL} from "../../http"
 
 interface IAuthState {
     user: IUser
@@ -50,7 +50,7 @@ export const logout = createAsyncThunk(
 export const checkAuth = createAsyncThunk(
     'auth/checkAuth',
     async () => {
-        const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true })
+        const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
         return response
     }
 )

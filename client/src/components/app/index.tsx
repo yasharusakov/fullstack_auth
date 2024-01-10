@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import { useActions } from '../../hooks/useActions'
+import {useEffect, useState} from 'react'
+import {useActions} from '../../hooks/useActions'
 import Auth from '../auth'
 import UserService from '../../services/UserService'
-import { IUser } from '../../types/IUser'
+import {IUser} from '../../types/IUser'
+import {useAppSelector} from '../../hooks/useAppSelector'
 import './style.scss'
-import { useAppSelector } from '../../hooks/useAppSelector'
 
 const App = () => {
     const {isLoading, isAuth, user} = useAppSelector(state => state.auth)
